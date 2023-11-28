@@ -3,17 +3,33 @@ import java.util.Scanner;
 
 class Solution {
     public static int solution(int A, int B, int C) {
+        int maxBit = 30;
 
-        int setBitsA = findSetBits(A);
-        int setBitsB = findSetBits(B);
-        int setBitsC = findSetBits(C);
-        
-        int commonConformingIntegers = (1 << setBitsA) + (1 << setBitsB) + (1 << setBitsC) - 1;
+        int maxCombinations = 1 << maxBit;
+        int conformingIntegers = 0;
 
-        return commonConformingIntegers;
+        for (int i = 0; i < maxCombinations; i++) {
+            int candidate = 0;
+
+            for (int j = 0; j < maxBit; j++) {
+                int bitA = (A >> j) & 1;
+                int bitB = (B >> j) & 1;
+                int bitC = (C >> j) & 1;
+
+                if (bitA == 1 || bitB == 1 || bitC == 1) {
+                    candidate |= (1 << j);
+                }
+            }
+
+            if ((candidate & A) == A || (candidate & B) == B || (candidate & C) == C) {
+                conformingIntegers++;
+            }
+        }
+
+        return conformingIntegers;
     }
 
-    private static int findSetBits(int num) {
+    /* private static int findSetBits(int num) {
         int count = 0;
 
         while (num > 0) {
@@ -21,7 +37,7 @@ class Solution {
             num >>= 1;
         }
         return count;
-    }
+    } */
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
