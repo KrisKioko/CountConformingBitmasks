@@ -3,13 +3,14 @@ import java.util.Scanner;
 
 class Solution {
     public static int solution(int A, int B, int C) {
+
         int setBitsA = findSetBits(A);
         int setBitsB = findSetBits(B);
         int setBitsC = findSetBits(C);
+        
+        int commonConformingIntegers = (1 << setBitsA) + (1 << setBitsB) + (1 << setBitsC) - 1;
 
-        int conformingIntegers = (1 << setBitsA) + (2 << setBitsB) + (3 << setBitsC) - 1;
-
-        return conformingIntegers;
+        return commonConformingIntegers;
     }
 
     private static int findSetBits(int num) {
@@ -40,3 +41,4 @@ class Solution {
         scanner.close();
     }
 }
+
