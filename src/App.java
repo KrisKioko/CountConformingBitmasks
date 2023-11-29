@@ -21,8 +21,12 @@ class Solution {
         return 1 << zeros(N);    // This line uses the left-shift operator to calculate '2^zeros(N)'
     }
 
+    // This method takes three integer 'A', 'B' & 'C' as parameters and returning as integer as it calculates the number of conforming integers based on bitwise operations
     public static int solution(int A, int B, int C) {
+        // Here, the number of conforming integers for the combinations of 'A|B', 'A|C', 'B|C', and 'A|B|C' are calculated. The common set bits among 'A', 'B', and 'C' are then subtracted once.
         int common = countConformingIntegers(A | B) + countConformingIntegers(A | C) + countConformingIntegers(B | C) - 1 * countConformingIntegers(A | B | C);
+
+        // The total number of conforming integers for 'A', 'B', and 'C' is calculated, and the common set bits among 'A', 'B', and 'C' are subtracted once.
         return countConformingIntegers(A) + countConformingIntegers(B) + countConformingIntegers(C) - 1 * common;
     }
     
