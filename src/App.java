@@ -2,42 +2,27 @@ import java.util.Scanner;
 
 
 class Solution {
-    public static int solution(int A, int B, int C) {
-        int maxBit = 30;
-
-        int maxCombinations = 1 << maxBit;
+    public static int zeros(int N) {
         int conformingIntegers = 0;
 
-        for (int i = 0; i < maxCombinations; i++) {
-            int candidate = 0;
-
-            for (int j = 0; j < maxBit; j++) {
-                int bitA = (A >> j) & 1;
-                int bitB = (B >> j) & 1;
-                int bitC = (C >> j) & 1;
-
-                if (bitA == 1 || bitB == 1 || bitC == 1) {
-                    candidate |= (1 << j);
-                }
-            }
-
-            if ((candidate & A) == A || (candidate & B) == B || (candidate & C) == C) {
+        for (int i = 0; i < 30; i++) {
+            if (N % 2 == 0) {
                 conformingIntegers++;
             }
+            N >>= 1;
         }
-
         return conformingIntegers;
     }
 
-    /* private static int findSetBits(int num) {
-        int count = 0;
+    public static int countConformingIntegers(int N) {
+        return 1 << zeros(N);
+    }
 
-        while (num > 0) {
-            count += (num & 1);
-            num >>= 1;
-        }
-        return count;
-    } */
+    public static int solution(int A, int B, int C) {
+        int common = countConformingIntegers(A | B) + countConformingIntegers(A | C) + countConformingIntegers(B | C) - 1 * countConformingIntegers(A | B | C);
+        return countConformingIntegers(A) + countConformingIntegers(B) + countConformingIntegers(C) - 1 * common;
+    }
+    
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
